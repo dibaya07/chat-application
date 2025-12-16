@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom"; //, useParams
 // import axios from 'axios'
 import { socket } from "../socket.js";
 import { v4 as uuidv4 } from "uuid";
+import profile from '../assets/profile.jpeg'
+import { IoMdSearch } from "react-icons/io";
+import { MdOutlineNavigateBefore } from "react-icons/md";
+
+
 
 export default function ChatArea() {
   const {
@@ -80,15 +85,20 @@ export default function ChatArea() {
   const time = "absolute bottom-0 right-4 text-xs";
 
   return (
-    <div className="flex flex-col p-3 h-screen bg-red-500 w-screen">
-      <div className="bg-green-400 w-full flex justify-between">
+    <div className="flex flex-col p-3 h-full bg-red-500 w-full ">
+      <div className="bg-green-400 w-full flex items-center">
+        <button onClick={handleClose} className="bg-black text-white p-3">
+          <MdOutlineNavigateBefore />
+        </button> 
+        <img src={`${profile}`} alt="profile" className="rounded-full h-10 w-10 object-cover"/>
+        <div className="flex flex-col flex-1">
+
         <span>{receiverId.username}</span>
         {activeUsers.includes(receiverId.id) && <span>online</span>}
-        <button onClick={handleClose} className="bg-black text-white p-3">
-          close
-        </button> 
+        </div>
+        <IoMdSearch />
       </div>
-      <div className="w-full">
+      <div className="w-full flex-1 bg-orange-400 overflow-y-scroll">
         {oldMsg
           ?.filter(
             (item) =>
@@ -163,7 +173,7 @@ export default function ChatArea() {
             </p>
           ))}
       </div>
-      <div className="w-full">
+      <div className="w-full ">
         <form onSubmit={handleSubmit} className=" bg-red-500 flex">
           <input
             type="text"
