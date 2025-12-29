@@ -1,9 +1,12 @@
 
 import Chat from "../model/chatModel.js";
+import GroupChat from "../model/grpChatModel.js";
+import Group from '../model/groupModel.js'
 
 export const chatSocket = (io) => {
   const activeUser = new Map();
   const currentRoom = new Map();
+
 
   const getRoom = (a,b)=>(
     [a,b].sort().join('-')
@@ -101,7 +104,7 @@ export const chatSocket = (io) => {
       const newMessage = await Chat.create({
         senderId: data.senderId,
         receiverId: data.receiverId,
-        messages: data.text,
+        text: data.text,
         status: isReceiverInRoom ? "read" : receiverSocket ? "delivered" : data.status,
       });
       if (newMessage) {
@@ -131,6 +134,55 @@ export const chatSocket = (io) => {
         // }
         // if(!activeUser.get(data.userId)){
           // }
+        })
+
+        socket.on('userInGrp',async(data)=>{
+          if(currentRoom.get(data.ownerId)){
+            // if(currentRoom.get(data.ownerId) == data.grpId)
+            socket.leave(currentRoom.get(data.ownerId))
+            currentRoom.delete(data.ownerId)
+          }
+          socket.join(data.grpId)
+          currentRoom.set(data.ownerId,data.grpId)
+
+          // console.log([...currentRoom.entries()])
+
+          // const unReadGrpMsg = await GroupChat.updateMany()
+        })
+
+        socket.on('grpNewMsg',async(data)=>{
+          
+          const newGrpMsg = await GroupChat.create({
+            groupId: data.grpId,
+            grpName: data.grpName,
+            senderId: data.senderId,
+            senderName: data.senderName,
+            text: data.text,
+            status:  data.status, //isReceiversInRoom.length > 0 ? 'delivered':
+            // seenBy: isReceiversInRoom
+          })
+          io.to(data.grpId).emit('newGrpMsg',newGrpMsg)
+          
+          const activeMembers = [...currentRoom.entries()].filter(item=>item[1] == data.grpId).map(item => (item[0]))
+
+          
+          // const allSeenBy = await GroupChat.find({
+          //   groupId: data.grpId,
+          //   status : "sent"
+          // },{
+          //   seenBy : 1 , _id:0
+          // })
+          // console.log(allSeenBy)
+
+          // allSeenBy.map(item => item.seenBy.includes())
+          // const update = await GroupChat.updateMany({
+          //   groupId : data.grpId,
+          //   status : 'sent'
+
+          // },{
+          //   $set : {seenBy: activeMembers}
+          // })
+
         })
         
         socket.on("disconnect", () => {
@@ -165,3 +217,39 @@ export const chatSocket = (io) => {
 //   if (key === owner) currentRoom.delete(key);
 //   socket.leave(value)
 // }
+
+
+
+
+
+// socket.join(data.grpId)
+          // console.log(data)
+          // currentRoom.get(data)
+          // console.log('members',members)
+          // grpMembers.map(item=>(activeUser.get(item.user)))
+          // console.log('members',members[0].members)
+          // members.map
+          // const receiverSocket = activeUser.get(data.senderId)
+          
+          // const isReceiverInRoom = currentRoom.get(data.ownerId)
+          // console.log("current room",isReceiverInRoom)
+          // isReceiversInRoom.map(item=>{
+
+          // })
+          // console.log(newGrpMsg)
+
+
+
+
+
+            // const group = await Group.find({_id:data.grpId})
+          // const grpMembers = group[0].members
+          // const isReceiversInRoom = grpMembers.map(item=>{
+          //   if(currentRoom.get(item.user) == data.grpId){
+          //     return(
+          //       item.user
+          //     )
+          //   }else{
+          //     return;
+          //   }
+          // })

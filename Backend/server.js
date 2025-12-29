@@ -8,6 +8,8 @@ import { Server } from "socket.io";
 import { createServer } from "http";
 import { chatSocket } from "./lib/socket.js";
 import chatRoute from './routes/chatRoute.js'
+import grpRoute from './routes/grpRoute.js'
+import grpChatRoute from "./routes/grpChatRoute.js"
 import cookieParser from "cookie-parser";
 import { configDotenv } from "dotenv";
 configDotenv()
@@ -27,6 +29,8 @@ app.use(cookieParser())
 app.use('/api/user',userRoute) //Rest api's
 // app.use('/api/chat',chatR) //Rest api's
 app.use('/api/chat', chatRoute)
+app.use('/api/group',grpRoute)
+app.use('/api/groupChat',grpChatRoute)
 
 const server = createServer(app) //create HTTP server
 

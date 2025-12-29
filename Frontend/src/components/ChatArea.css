@@ -1,0 +1,7 @@
+
+.background{
+    /* background-color: blue; */
+    background-image: url(../assets/_.jpeg);
+    background-size: cover;
+    background-position: center;
+}

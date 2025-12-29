@@ -46,13 +46,13 @@ export default function AuthForm() {
     )
     if(!socket.connected){      
       socket.connect()
-      console.log('not connected')
+      // console.log('not connected')
     }
     socket.once('connect',()=>{
       socket.emit("authenticated",res.data.user._id)
-      if(socket.connected){
-        console.log('connected')
-      }
+      // if(socket.connected){
+      //   console.log('connected')
+      // }
     })
 
       setUser(isSignUp ? {username: "",email: "",password: "",} : 
@@ -70,17 +70,17 @@ export default function AuthForm() {
   };
 
   return (
-    <div className={`flex justify-around items-center flex-col ${isSignUp ? "h-[75%]" : 'h-[65%]'}  w-[80%] bg-green-950`}>
-      <span className="bg-white my-4 py-1 px-4">{isSignUp ? 'SignUp' : 'Login'} Form</span>
+    <div className={`flex justify-around items-center flex-col bg-[#85898f] rounded-lg ${isSignUp ? "h-[80%] md:h-[75%]" : 'h-[80%] md:h-[65%]'} w-[95%] md:w-[80%] `}>
+      <span className="bg-white my-2 md:my-4 py-1 px-4 rounded-md">{isSignUp ? 'SignUp' : 'Login'} Form</span>
       
-      <form onSubmit={handleSubmit} className="bg-red-600 flex flex-col items-center border border-solid border-black p-2 h-fit w-full">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center border border-solid border-black p-2 h-fit w-full">
        {isSignUp && <input
           type="text"
           name="username"
           placeholder="username"
           value={user.username}
           onChange={handleChange}
-          className="border border-solid border-black m-2 p-3 rounded-md w-[80%]"
+          className="border border-solid border-black m-2 p-3 rounded-md w-[95%] md:w-[80%]"
         />}
         <input
           type="text"
@@ -88,7 +88,7 @@ export default function AuthForm() {
           placeholder="email"
           value={user.email}
           onChange={handleChange}
-          className="border border-solid border-black m-2 p-3 rounded-md w-[80%]"
+          className="border border-solid border-black m-2 p-3 rounded-md w-[95%] md:w-[80%]"
         />
         <input
           type="text"
@@ -96,14 +96,14 @@ export default function AuthForm() {
           placeholder="password"
           value={user.password}
           onChange={handleChange}
-          className="border border-solid border-black m-2 p-3 rounded-md w-[80%]"
+          className="border border-solid border-black m-2 p-3 rounded-md w-[95%] md:w-[80%]"
         />
-        <button className="border border-solid border-black m-2 w-fit  px-5 py-2">{isSignUp ? "Sign up" : "Login"}</button>
+        <button className="border border-solid border-black m-2 w-fit  px-8 py-2 rounded-lg hover:bg-black hover:text-white">{isSignUp ? "Sign up" : "Login"}</button>
       </form>
       {error && <>
       <h2 className="text-red-800">{error}</h2>
       </>}
-      <p onClick={handleIsSignUp} className={`cursor-pointer underline m-1`}>{isSignUp ? "Already have a account" : "Create a new account"}</p>
+      <p onClick={handleIsSignUp} className={`cursor-pointer m-1  hover:underline `}>{isSignUp ? "Already have a account" : "Create a new account"}</p>
     </div>
   );
 }

@@ -38,6 +38,12 @@ export const ChatProvider = ({ children }) => {
   const [oldMsg, setOldMsg] = useState([])
   const [receiverId, setReceiverId] = useState({username:'',id:''})
   const [activeUsers, setActiveUsers] = useState([])
+  const [newMsg, setNewMsg] = useState(false)
+  const [allGroups, setAllGroups] = useState('')
+  const [isGrpClicked, setIsGrpClicked] = useState(false)
+  const [oldGrpMsg, setOldGrpMsg] = useState([])
+  const [grpMsg, setGrpMsg] = useState([])
+  // const [grpDetails, setGrpDetails] = useState({username:"",id:""})
 //   const [receivedMsg, setReceivedMsg] = useState(null)
   // const [token, setToken] = useState()
 
@@ -62,9 +68,14 @@ export const ChatProvider = ({ children }) => {
     }
   };
 
+  // useEffect(() => {
+  //   if(isLogin){myData()};
+  // }, [isLogin]);
+
   useEffect(() => {
-    myData();
-  }, []);
+    myData()
+  }, [isLogin])
+  
 
 //   console.log();
 
@@ -92,7 +103,7 @@ export const ChatProvider = ({ children }) => {
 
   const prevMsg = async()=>{
     const res = await axios.get(`http://localhost:3000/api/chat`,{withCredentials:true})
-    // console.log(res)
+    // console.log('old msg',res.data.allMessages)
     setOldMsg(res.data.allMessages)
   }
 
@@ -103,6 +114,28 @@ export const ChatProvider = ({ children }) => {
     // useEffect(() => {
     //   console.log(oldMsg)
     // }, [oldMsg])
+    
+    const allGrps = async()=>{
+      const res =await axios.get('http://localhost:3000/api/group')
+      // console.log(res.data.allGrps)
+      setAllGroups(res.data.allGrps)
+    }
+
+    useEffect(() => {
+     allGrps()
+    }, [isLogin])
+    
+    const prevGrpMsg = async()=>{
+      const res = await axios.get('http://localhost:3000/api/groupChat')
+      setOldGrpMsg(res.data.allMsg)
+      // console.log(res.data.allMsg)
+    }
+
+    useEffect(() => {
+      if(isLogin){
+        prevGrpMsg()
+      }
+    }, [isLogin])
     
 
   return (
@@ -124,7 +157,13 @@ export const ChatProvider = ({ children }) => {
         oldMsg, setOldMsg,
         isSignUp, setIsSignUp,
         receiverId,setReceiverId,
-        activeUsers, setActiveUsers
+        activeUsers, setActiveUsers,
+        newMsg, setNewMsg,
+        allGroups, setAllGroups,
+        isGrpClicked, setIsGrpClicked,
+        oldGrpMsg, setOldGrpMsg,
+        grpMsg, setGrpMsg
+        // grpDetails, setGrpDetails
       }}
     >
       {children}
