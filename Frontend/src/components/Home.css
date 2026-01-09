@@ -1,16 +1,16 @@
-.home{
-    background-image: url(../assets/sunlight-shining-single-mountain-top-sunset-with-dark-cloudy-sky.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+/* .home{ */
+    /* background-image: url(../assets/_.jpeg); */
+    /* background-repeat: no-repeat; */
+    /* background-position: center; */
+    /* background-size: cover; */
     /* filter: blur(8px); */
-}
+/* } */
 
-.login{
+/* .login{ */
     /* background: transparent; */
-    border: 1px solid #2B2B2B;
+    /* border: 1px solid #2B2B2B;
     backdrop-filter: blur(2px);
-    box-shadow: 0 0 2px #B0B0B0
+    box-shadow: 0 0 2px #B0B0B0 */
 
     /* filter: blur(1px); */
-}
+/* } */

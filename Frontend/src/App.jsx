@@ -3,6 +3,7 @@ import Home from "./components/Home"
 
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 import AuthForm from "./components/AuthForm"
+import HowItWork from "./components/HowItWork"
 
 function App() {
 
@@ -16,6 +17,9 @@ function App() {
     },
     {
        path : '/chatArea/:id',element : <ChatArea/>
+    },
+    {
+       path : '/HowItWorks',element : <HowItWork/>
     },
   ])
 

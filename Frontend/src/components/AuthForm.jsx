@@ -70,10 +70,10 @@ export default function AuthForm() {
   };
 
   return (
-    <div className={`flex justify-around items-center flex-col bg-[#85898f] rounded-lg ${isSignUp ? "h-[80%] md:h-[75%]" : 'h-[80%] md:h-[65%]'} w-[95%] md:w-[80%] `}>
+    <div className={`flex justify-around items-center flex-col bg-[#d6e3f7] rounded-lg ${isSignUp ? "h-[80%] md:h-[75%]" : 'h-[80%] md:h-[65%]'} w-[95%] md:w-[80%] `}>
       <span className="bg-white my-2 md:my-4 py-1 px-4 rounded-md">{isSignUp ? 'SignUp' : 'Login'} Form</span>
       
-      <form onSubmit={handleSubmit} className="flex flex-col items-center border border-solid border-black p-2 h-fit w-full">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center p-2 h-fit w-full rounded-xl ">
        {isSignUp && <input
           type="text"
           name="username"
