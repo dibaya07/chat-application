@@ -203,7 +203,7 @@ export default function Contact() {
   };
 
   const handleGrpCreate = async () => {
-    const res = await axios.post("http://localhost:3000/api/group/create", {
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}/group/create`, {
       grpName: grpName,
       owner: userInfo.id,
       members: grpMembers,
@@ -242,7 +242,7 @@ export default function Contact() {
   return (
     <div className={` flex w-screen h-screen`}>
       <div
-        className={`leftArea  h-screen w-full md:w-1/3 overflow-hidden ${
+        className={`leftArea  h-screen w-full md:w-2/5 lg:w-1/3 overflow-hidden ${
           receiverId.id ? "hidden md:block " : ""
         } `}
       >
@@ -250,7 +250,7 @@ export default function Contact() {
 
         <Navbar handleDialogOpen={handleDialogOpen} />
 
-        <dialog ref={dialogRef} className="h-1/2 w-1/4 p-5 overflow-hidden">
+        <dialog ref={dialogRef} className="md:h-1/2 w-full md:w-1/2 xl:w-1/4 p-5 overflow-hidden rounded-md">
           <DialogRef
             handleNewGrp={handleNewGrp}
             grpMembers={grpMembers}
@@ -261,7 +261,7 @@ export default function Contact() {
           />
         </dialog>
 
-        <dialog ref={grpCreateRef} className="h-1/2 w-1/4 p-5 overflow-hidden">
+        <dialog ref={grpCreateRef} className="md:h-1/2 w-full md:w-1/2 xl:w-1/4 p-5 overflow-hidden rounded-md">
           <GrpCreateRef
             handleBack={handleBack}
             setGrpName={setGrpName}
@@ -293,7 +293,7 @@ export default function Contact() {
         </ul>
 
         <ul
-          className={`bg-[#4c7be1] w-full h-full overflow-hidden border-t border-t-solid border-t-[#393E46]`}
+          className={`bg-[#f1f4fa] w-full h-full overflow-hidden border-t border-t-solid border-t-[#393E46]`}
         >
           <UserList
             isLogin={isLogin}
@@ -319,7 +319,7 @@ export default function Contact() {
         </ul>
       </div>
       <div className={`contact rightArea flex-1 `}>
-        {receiverId.id ? <ChatArea /> : <div className='bg-[#f0f0f0] h-full w-full flex justify-center items-center'><span className='bg-[#0688f3] text-white font-semibold text-xl px-8 py-6 rounded-md'>Welcome to Chat application</span></div>}
+        {receiverId.id ? <ChatArea /> : <div className='bg-[#f0f0f0] h-full w-full md:flex justify-center hidden items-center'><span className='bg-[#0688f3] text-white font-semibold text-xl px-8 py-6 rounded-md'>Welcome to Chat application</span></div>}
         {/* {grpDetails.id && <GrpChatArea/>}    || grpDetails.id    ${receiverId.id && "w-full"} */}
       </div>
     </div>

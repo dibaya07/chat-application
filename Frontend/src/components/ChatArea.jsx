@@ -183,7 +183,7 @@ export default function ChatArea() {
 
   return (
     <div className="flex flex-col  h-screen  w-full bg-[#083db1]">
-      <div className="bg-[#1246b7] w-full flex items-center">
+      <div className="bg-[#1246b7] w-full flex items-center py-[6px]">
         <button
           onClick={handleClose}
           className="bg-transparent text-white text-2xl font-medium p-2"
@@ -209,12 +209,12 @@ export default function ChatArea() {
             )}
           </span>
         </div>
-        <span className="mx-1 px-2 text-2xl text-gray-400">
+        <span className="mx-1 px-2 text-2xl text-gray-200">
           <IoMdSearch />
         </span>
       </div>
       <div
-        className="background w-full flex-1 overflow-y-auto bg-[#659bed]"
+        className="background w-full flex-1 overflow-y-auto bg-[#e6ebf5]"
         ref={chatRef}
         onScroll={handleScroll}
       >

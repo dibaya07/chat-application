@@ -26,7 +26,7 @@ export default function Navbar({ handleDialogOpen }) {
   const handleLogOut = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/user/logout",
+        `${import.meta.env.VITE_API_URL}/user/logout`,
         {},
         {
           withCredentials: true,
@@ -72,7 +72,7 @@ export default function Navbar({ handleDialogOpen }) {
                   className="bg-transparent "
                 />
               </span> */}
-      <div className=" flex w-1/3 md:w-1/2 justify-around">
+      <div className=" flex w-1/2 justify-around ">
         <span
           className="text-white text-2xl my-auto cursor-pointer hover:text-[#010919]"
           onClick={handleDialogOpen}
@@ -83,7 +83,7 @@ export default function Navbar({ handleDialogOpen }) {
           <span className="text-white text-2xl my-auto cursor-pointer hover:text-[#010919]" title="How it works" onClick={()=>navigate('/HowItWorks')}><IoMdHelpCircleOutline /></span>
         <span
           onClick={handleLogOut}
-          className={`bg-[#436fcf] hover:bg-[#010919]  text-white text-xl py-1  px-2 cursor-pointer m-1 rounded-md`}
+          className={`bg-[#436fcf] hover:bg-[#010919]  text-white text-sm lg:text-xl py-1  px-2 cursor-pointer m-1 rounded-md`}
           title="Log out"
         >
           <span className="hidden md:block ">Log out</span>

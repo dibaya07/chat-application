@@ -30,10 +30,10 @@ export default function AuthForm() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post(
-        `http://localhost:3000/api/user/${endPoint}`,
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/user/${endPoint}`,
         user,{withCredentials:true}
       );
+      // console.log(res)
       setUserInfo(isSignUp ? {
         username: res.data.user.username,
         email: res.data.user.email,
@@ -101,7 +101,7 @@ export default function AuthForm() {
         <button className="border border-solid border-black m-2 w-fit  px-8 py-2 rounded-lg hover:bg-black hover:text-white">{isSignUp ? "Sign up" : "Login"}</button>
       </form>
       {error && <>
-      <h2 className="text-red-800">{error}</h2>
+      <h2 className="text-red-800 ">{error}</h2>
       </>}
       <p onClick={handleIsSignUp} className={`cursor-pointer m-1  hover:underline `}>{isSignUp ? "Already have a account" : "Create a new account"}</p>
     </div>

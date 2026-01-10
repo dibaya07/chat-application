@@ -11,7 +11,10 @@ export const myData = async(req,res)=>{
     const id = req.user.id;
     const user = await User.find({_id:id});
     // console.log(user)
-    const {password, ...rest} = user[0]._doc;
+    if(!user.length > 0){
+      return res.json({message:'user not found'})
+    }
+    const {password, ...rest} = user[0]?._doc;
     return res.json({isToken,rest})
   }catch(error){
     console.log(error)
@@ -88,6 +91,12 @@ export const userLogin = async(req,res)=>{
     return res.status(400).json({message:"all fields are required"})
   }
   const user = await User.findOne({email})
+  // console.log(user)
+  // console.log(!user)
+
+  // if(!user){
+  //   return res.json({message:'User not found, Create a account'})
+  // }
   if(user && (await bcrypt.compare(password , user.password))){
     const token = jwt.sign({username: user.username,id : user._id},process.env.TOKEN_KEY,{expiresIn: "7d"});
     res.cookie("chatapp-token",token,{
@@ -100,6 +109,8 @@ export const userLogin = async(req,res)=>{
     // console.log("rest",rest)
     // console.log("user",user)
     return res.json({message:'login successfully',user:rest,success:true})
+  }else{
+    return res.status(404).json({message:'User not found, Create a account'})
   }
 
  }catch(error){

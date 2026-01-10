@@ -30,13 +30,13 @@ export default function GroupList({
           return (
             <li
               key={group._id}
-              className=" text-white text-lg  m-2 cursor-pointer flex items-center relative hover:bg-[#86a7ee] rounded-lg px-1"
+              className=" text-lg  m-2 cursor-pointer flex items-center relative hover:bg-[#d6e1f7] rounded-lg px-1"
               onClick={() => handleGrpChatOpen(group.grpName, group._id)}
             >
-              <span className="rounded-full h-10 w-10 bg-black flex justify-center items-center text-2xl">
+              <span className="rounded-full h-10 w-10 bg-black text-white flex justify-center items-center text-2xl">
                 <MdGroups />
               </span>
-              <span className="flex-1 text-white  text-left px-3 py-3 text-ellipsis overflow-hidden flex flex-col leading-3">
+              <span className="flex-1 text-black  text-left px-3 py-3 text-ellipsis overflow-hidden flex flex-col leading-3 tracking-wide">
                 <span className="flex justify-between">
                   <span className="capitalize">{group.grpName}</span>
 

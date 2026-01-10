@@ -49,7 +49,7 @@ export const ChatProvider = ({ children }) => {
 
   const myData = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/user/me", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/user/me`, {
         withCredentials: true,
       });
     //   console.log(res)/
@@ -73,7 +73,9 @@ export const ChatProvider = ({ children }) => {
   // }, [isLogin]);
 
   useEffect(() => {
-    myData()
+     if(isLogin){
+       myData()
+    }
   }, [isLogin])
   
 
@@ -81,7 +83,7 @@ export const ChatProvider = ({ children }) => {
 
   const users = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/user", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/user`, {
         withCredentials: true,
       });
       setAllUsers(res.data.allUsers);
@@ -102,7 +104,7 @@ export const ChatProvider = ({ children }) => {
 
 
   const prevMsg = async()=>{
-    const res = await axios.get(`http://localhost:3000/api/chat`,{withCredentials:true})
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/chat`,{withCredentials:true})
     // console.log('old msg',res.data.allMessages)
     setOldMsg(res.data.allMessages)
   }
@@ -126,7 +128,7 @@ export const ChatProvider = ({ children }) => {
     }, [isLogin])
     
     const prevGrpMsg = async()=>{
-      const res = await axios.get('http://localhost:3000/api/groupChat')
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/groupChat`)
       setOldGrpMsg(res.data.allMsg)
       // console.log(res.data.allMsg)
     }

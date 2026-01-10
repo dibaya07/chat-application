@@ -19,7 +19,7 @@ connectDB() //connect mongoDB
 
 app.use(cors(
   {
-    origin:"http://localhost:5173",
+    origin:process.env.CLIENTSIDE_URL,
     credentials: true,
   }
 )); 
@@ -36,7 +36,7 @@ const server = createServer(app) //create HTTP server
 
 const io = new Server(server,{ //attach socket.io to the same server
   cors: {
-    origin: "http://localhost:5173", //frontend url
+    origin: process.env.CLIENTSIDE_URL, //frontend url
     credentials:true,
     methods: ['GET','POST']
   },

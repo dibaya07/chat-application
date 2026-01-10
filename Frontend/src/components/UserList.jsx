@@ -36,16 +36,16 @@ export default function UserList({
           return (
             <li
               key={person._id}
-              className=" text-white text-lg  m-2 cursor-pointer flex items-center relative hover:bg-[#86a7ee] rounded-lg px-1"
+              className=" text-lg  m-2 cursor-pointer flex items-center relative hover:bg-[#d6e1f7] rounded-lg px-1"
             >
-              <span className="rounded-full h-10 w-10 bg-black flex justify-center items-center text-2xl">
+              <span className="rounded-full h-10 w-10 bg-black text-white flex justify-center items-center text-2xl">
                 <FaUser />
               </span>
 
               <button
                 type="button"
                 onClick={() => handleClick(person.username, person._id)}
-                className="flex-1 text-white  text-left p-3 text-ellipsis overflow-hidden flex flex-col leading-3"
+                className="flex-1 text-black  text-left p-3 text-ellipsis overflow-hidden flex flex-col leading-3"
               >
                 <span className="flex justify-between">
                   {person.username == userInfo.username
