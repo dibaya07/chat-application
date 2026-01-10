@@ -118,7 +118,7 @@ export const ChatProvider = ({ children }) => {
     // }, [oldMsg])
     
     const allGrps = async()=>{
-      const res =await axios.get(`${import.meta.env.VITE_API_URL}/group`)
+      const res =await axios.get(`${import.meta.env.VITE_API_URL}/group`,{withCredentials:true})
       // console.log(res.data.allGrps)
       setAllGroups(res.data.allGrps)
     }
@@ -128,7 +128,7 @@ export const ChatProvider = ({ children }) => {
     }, [isLogin])
     
     const prevGrpMsg = async()=>{
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/groupChat`)
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/groupChat`,{withCredentials:true})
       setOldGrpMsg(res.data.allMsg)
       // console.log(res.data.allMsg)
     }
