@@ -118,7 +118,7 @@ export const ChatProvider = ({ children }) => {
     // }, [oldMsg])
     
     const allGrps = async()=>{
-      const res =await axios.get('http://localhost:3000/api/group')
+      const res =await axios.get(`${import.meta.env.VITE_API_URL}/group`)
       // console.log(res.data.allGrps)
       setAllGroups(res.data.allGrps)
     }
