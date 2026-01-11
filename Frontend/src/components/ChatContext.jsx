@@ -8,6 +8,7 @@ export const ChatProvider = ({ children }) => {
   const [error, setError] = useState("");
   const [isLogin, setIsLogin] = useState(false);
    const [isSignUp, setIsSignUp] = useState(false)
+   const [loading, setLoading] = useState(false)
   //  const userSignUpInfo = {
   //   isSignUp ? {
   //   username: "",
@@ -164,7 +165,8 @@ export const ChatProvider = ({ children }) => {
         allGroups, setAllGroups,
         isGrpClicked, setIsGrpClicked,
         oldGrpMsg, setOldGrpMsg,
-        grpMsg, setGrpMsg
+        grpMsg, setGrpMsg,
+        loading, setLoading
         // grpDetails, setGrpDetails
       }}
     >

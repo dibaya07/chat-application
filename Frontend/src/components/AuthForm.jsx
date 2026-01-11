@@ -8,7 +8,7 @@ import { socket } from "../socket";
 // import { useState } from "react";
 
 export default function AuthForm() {
-  const { user, setUser, setUserInfo,error, setError , setIsLogin,isSignUp, setIsSignUp} = useContext(ChatContext);  //, setIsLogin
+  const { user, setUser, setUserInfo,error, setError , setIsLogin,isSignUp, setIsSignUp,loading, setLoading} = useContext(ChatContext);  //, setIsLogin
   const navigate = useNavigate();
   // const [isSignUp, setIsSignUp] = useState(false)
 
@@ -34,6 +34,7 @@ export default function AuthForm() {
         user,{withCredentials:true}
       );
       // console.log(res)
+      setLoading(true)
       setUserInfo(isSignUp ? {
         username: res.data.user.username,
         email: res.data.user.email,
@@ -58,6 +59,9 @@ export default function AuthForm() {
       setUser(isSignUp ? {username: "",email: "",password: "",} : 
         {username: "",email: "",password: "",});
       setIsLogin(res.data.success)
+      if(res.data.success){
+        setLoading(false)
+      }
       navigate("/");
     } catch (error) {
       console.log("signup error",error);
@@ -98,7 +102,7 @@ export default function AuthForm() {
           onChange={handleChange}
           className="border border-solid border-black m-2 p-3 rounded-md w-[95%] md:w-[80%]"
         />
-        <button className="border border-solid border-black m-2 w-fit  px-8 py-2 rounded-lg hover:bg-black hover:text-white">{isSignUp ? "Sign up" : "Login"}</button>
+        <button className="border border-solid border-black m-2 w-fit  px-8 py-2 rounded-lg hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:bg-gray-600" disabled={loading} >{loading ? "..." : isSignUp ? "Sign up" : "Login" }</button>
       </form>
       {error && <>
       <h2 className="text-red-800 ">{error}</h2>
