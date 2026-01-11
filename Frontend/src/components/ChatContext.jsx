@@ -50,7 +50,7 @@ export const ChatProvider = ({ children }) => {
 
   const myData = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/user/me`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/me`, {
         withCredentials: true,
       });
     //   console.log(res)/
@@ -84,7 +84,7 @@ export const ChatProvider = ({ children }) => {
 
   const users = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/user`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
         withCredentials: true,
       });
       setAllUsers(res.data.allUsers);
@@ -105,13 +105,15 @@ export const ChatProvider = ({ children }) => {
 
 
   const prevMsg = async()=>{
-    const res = await axios.get(`${import.meta.env.VITE_API_URL}/chat`,{withCredentials:true})
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/chat`,{withCredentials:true})
     // console.log('old msg',res.data.allMessages)
     setOldMsg(res.data.allMessages)
   }
 
     useEffect(() => {
-     prevMsg()
+      if(isLogin){
+        prevMsg()
+    }
     }, [isLogin])
 
     // useEffect(() => {
@@ -119,17 +121,19 @@ export const ChatProvider = ({ children }) => {
     // }, [oldMsg])
     
     const allGrps = async()=>{
-      const res =await axios.get(`${import.meta.env.VITE_API_URL}/group`,{withCredentials:true})
+      const res =await axios.get(`${import.meta.env.VITE_API_URL}/api/group`,{withCredentials:true})
       // console.log(res.data.allGrps)
       setAllGroups(res.data.allGrps)
     }
 
     useEffect(() => {
-     allGrps()
+      if(isLogin){
+        allGrps()
+    }
     }, [isLogin])
     
     const prevGrpMsg = async()=>{
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/groupChat`,{withCredentials:true})
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/groupChat`,{withCredentials:true})
       setOldGrpMsg(res.data.allMsg)
       // console.log(res.data.allMsg)
     }

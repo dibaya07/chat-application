@@ -30,7 +30,7 @@ export default function AuthForm() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/user/${endPoint}`,
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/user/${endPoint}`,
         user,{withCredentials:true}
       );
       // console.log(res)

@@ -203,7 +203,7 @@ export default function Contact() {
   };
 
   const handleGrpCreate = async () => {
-    const res = await axios.post(`${import.meta.env.VITE_API_URL}/group/create`, {
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/group/create`, {
       grpName: grpName,
       owner: userInfo.id,
       members: grpMembers,
