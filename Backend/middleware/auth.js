@@ -6,15 +6,15 @@ export const verifyToken = (req,res,next)=>{
 
 
   if(!token){
-    console.log('from auth token missing')
-    console.log('auth',token)
+    // console.log('from auth token missing')
+    // console.log('auth',token)
     req.token = false;
     return next()
   }
 
   jwt.verify(token, process.env.TOKEN_KEY,(err,decoded)=>{
     if(err){
-      console.log('token verification failed')
+      // console.log('token verification failed')
       req.token = false;
       return next()
     }else{
