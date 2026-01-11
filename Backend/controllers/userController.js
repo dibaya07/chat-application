@@ -17,7 +17,7 @@ export const myData = async(req,res)=>{
     const {password, ...rest} = user[0]?._doc;
     return res.json({isToken,rest})
   }catch(error){
-    console.log(error)
+    // console.log(error)
     return res.json({message:"myData error "})
   }
 }

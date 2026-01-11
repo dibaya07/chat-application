@@ -5,6 +5,9 @@ import Chat from "../model/chatModel.js"
 export const allMessages = async(req,res)=>{
    try{
       const {id}=req.user;
+      if(!id){
+         return res.status(400).json({message:"no chat found"})
+      }
       // const allMessages = await Chat.find({$and:[{$or:[{senderId:id},{receiverId:id}]}, {status: {$ne:"sent"}}]}) 
       const allMessages = await Chat.find({$or:[{senderId:id},{receiverId:id}]}) 
       return res.json({success:true,allMessages})

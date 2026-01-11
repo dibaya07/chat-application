@@ -53,7 +53,7 @@ export const ChatProvider = ({ children }) => {
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/me`, {
         withCredentials: true,
       });
-    //   console.log(res)/
+      console.log(res)
 
       setUserInfo({
         username: res.data.rest.username,
@@ -87,6 +87,7 @@ export const ChatProvider = ({ children }) => {
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
         withCredentials: true,
       });
+      console.log(res)
       setAllUsers(res.data.allUsers);
     } catch (error) {
       setError(error.response.data.message);
