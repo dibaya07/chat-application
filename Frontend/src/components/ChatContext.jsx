@@ -47,6 +47,11 @@ export const ChatProvider = ({ children }) => {
   // const [grpDetails, setGrpDetails] = useState({username:"",id:""})
 //   const [receivedMsg, setReceivedMsg] = useState(null)
   // const [token, setToken] = useState()
+useEffect(() => {
+  setIsLogin(localStorage.getItem('chat-token')) 
+  // console.log(localStorage.getItem('chat-token'))
+  
+}, [])
 
   const myData = async () => {
     try {
@@ -54,7 +59,7 @@ export const ChatProvider = ({ children }) => {
         withCredentials: true,
       });
       console.log(res)
-
+      localStorage.setItem('chat-token',res.data.isToken)
       setUserInfo({
         username: res.data.rest.username,
         email: res.data.rest.email,

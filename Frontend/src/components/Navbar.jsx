@@ -36,6 +36,7 @@ export default function Navbar({ handleDialogOpen }) {
         socket.emit("logout", { userId: userInfo.id });
         socket.disconnect();
       }
+      localStorage.removeItem('chat-token')
       console.log(res);
       setMessage([]);
       setAllUsers([]);
