@@ -89,9 +89,7 @@ useEffect(() => {
 
   const users = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
-        withCredentials: true,
-      });
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {withCredentials: true});
       console.log(res)
       setAllUsers(res.data.allUsers);
     } catch (error) {

@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 export const myData = async(req,res)=>{
   try{
     const isToken = req.token;
+    // console.log()
     if(!isToken){
       return res.status(401).json({isToken,message:'Need to sign in'})
     }
@@ -102,7 +103,7 @@ export const userLogin = async(req,res)=>{
     res.cookie("chatapp-token",token,{
       httpOnly:true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     })
     const {password:pass,...rest} = user._doc;
