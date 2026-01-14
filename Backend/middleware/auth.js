@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 
 export const verifyToken = (req,res,next)=>{
   let token = req.cookies['chatapp-token'];
-  console.log(token)
+  // console.log(token)
 
 
   if(!token){

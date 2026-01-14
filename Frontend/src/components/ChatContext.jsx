@@ -58,7 +58,7 @@ useEffect(() => {
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/me`, {
         withCredentials: true,
       });
-      console.log(res)
+      // console.log(res)
       localStorage.setItem('chat-token',res.data.isToken)
       setUserInfo({
         username: res.data.rest.username,
@@ -90,7 +90,7 @@ useEffect(() => {
   const users = async () => {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {withCredentials: true});
-      console.log(res)
+      // console.log(res)
       setAllUsers(res.data.allUsers);
     } catch (error) {
       setError(error.response.data.message);

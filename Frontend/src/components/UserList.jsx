@@ -50,7 +50,7 @@ export default function UserList({
                 <span className="flex justify-between">
                   {person.username == userInfo.username
                     ? "You"
-                    : person.username}
+                    : person.username || 'Users'}
                   <span className="text-[10px]">
                     {(message?.filter(onlyUser).length &&
                       lstMsg?.at(-1)?.time) ||
