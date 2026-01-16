@@ -2,18 +2,22 @@ import Chat from "../model/chatModel.js";
 import GroupChat from "../model/grpChatModel.js";
 import Group from "../model/groupModel.js";
 
+
 export const chatSocket = (io) => {
-  const activeUser = new Map();
+  const activeUser = new Map(); 
   const currentRoom = new Map();
 
   const getRoom = (a, b) => [a, b].sort().join("-");
 
   io.on("connection", (socket) => {
-    socket.on("authenticated", async (userID) => {
+    socket.on("authenticated", async (userID) => { 
+      // console.log('authenticated',userID)
       const pendingMsg = await Chat.find({
         receiverId: userID,
         status: "sent",
       });
+      // console.log("pending msg",pendingMsg)
+      // console.log("pending msg length",pendingMsg.length)
 
       if (pendingMsg.length) {
         io.to(socket.id).emit(
@@ -39,6 +43,8 @@ export const chatSocket = (io) => {
       }
     });
     socket.on("user_id", (userID) => {
+      // console.log('userid', userID)
+      // console.log(!activeUser.has(userID))
       if (!activeUser.has(userID)) {
         activeUser.set(userID, socket.id);
       }
@@ -47,11 +53,13 @@ export const chatSocket = (io) => {
     });
 
     socket.on("userEnterChat", async (data) => {
+      // console.log('userenter', data)
       if (currentRoom.get(data.ownerId)) {
         socket.leave(currentRoom.get(data.ownerId));
         currentRoom.delete(data.ownerId);
       }
-      const room = getRoom(socket.id, activeUser.get(data.receiverId));
+      const room = getRoom(data.ownerId, data.receiverId);
+      // console.log('room',room)
       socket.join(room);
       currentRoom.set(data.ownerId, room);
       const unreadChat = await Chat.updateMany(
@@ -62,25 +70,32 @@ export const chatSocket = (io) => {
         },
         { $set: { status: "read" } }
       );
+      // console.log("unreadchat",unreadChat.modifiedCount)
       if (unreadChat.modifiedCount > 0) {
         io.to(activeUser.get(data.ownerId)).emit("chatRead", {
           senderId: data.receiverId,
           receiverId: data.ownerId,
           status: "read",
         });
-        io.to(activeUser.get(data.receiverId)).emit("chatRead", {
-          senderId: data.receiverId,
-          receiverId: data.ownerId,
-          status: "read",
-        });
+        const receiverSocket = activeUser.get(data.receiverId)
+        if(receiverSocket){
+          io.to(receiverSocket).emit("chatRead", {
+            senderId: data.receiverId,
+            receiverId: data.ownerId,
+            status: "read",
+          });
+        }
       }
     });
 
     socket.on("new_message", async (data) => {
-      const room = getRoom(socket.id, activeUser.get(data.receiverId));
-      const isReceiverInRoom = io.sockets.adapter.rooms
-        .get(room)
-        ?.has(activeUser.get(data.receiverId));
+      // console.log('newmsg',data)
+      const room = getRoom(data.senderId, data.receiverId);
+      // if(currentRoom.get(data.receiverId)){
+      //   // console.log(currentRoom.get(data.receiverId) == room)
+      // }
+      const isReceiverInRoom = currentRoom.get(data.receiverId) == room
+        console.log('isreceriver',isReceiverInRoom)
       const receiverSocket = activeUser.get(data.receiverId);
       const newMessage = await Chat.create({
         senderId: data.senderId,
@@ -90,20 +105,20 @@ export const chatSocket = (io) => {
           ? "read"
           : receiverSocket
           ? "delivered"
-          : data.status,
+          : 'sent',
       });
       if (newMessage) {
         // console.log('new message',newMessage)
         io.to(socket.id).emit("send_new_message", newMessage);
       }
 
-      if (receiverSocket) {
+      if (receiverSocket && (receiverSocket !== socket.id)) {
         io.to(receiverSocket).emit("send_new_message", newMessage);
       }
     });
 
     socket.on("chatArea-closed", (data) => {
-      const room = getRoom(socket.id, activeUser.get(data.receiverId));
+      const room = getRoom(data.ownerId, data.receiverId);
       socket.leave(room);
       currentRoom.delete(data.ownerId);
     });
@@ -196,10 +211,13 @@ export const chatSocket = (io) => {
       });
       // io.to(data.grpId).emit('newGrpMsg',newGrpMsg)
       // io.to(activeUser.get(allGrpMmembers.map(item=>item.toString()))).emit('newGrpMsg',newGrpMsg)
-      io.to(allGrpMembers.map((item) => activeUser.get(item.toString()))).emit(
-        "newGrpMsg",
-        newGrpMsg
-      );
+      allGrpMembers.map((item) => {
+        let userId = activeUser.get(item.toString())
+        io.to(userId).emit(
+          "newGrpMsg",
+          newGrpMsg
+        );
+      })
     });
 
     socket.on("disconnect", () => {

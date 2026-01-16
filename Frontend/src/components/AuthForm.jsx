@@ -30,11 +30,11 @@ export default function AuthForm() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true)
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/user/${endPoint}`,
         user,{withCredentials:true}
       );
       // console.log(res)
-      setLoading(true)
       setUserInfo(isSignUp ? {
         username: res.data.user.username,
         email: res.data.user.email,

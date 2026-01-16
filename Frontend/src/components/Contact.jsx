@@ -126,11 +126,15 @@ export default function Contact() {
     //   }
     // ])
   };
-
+// console.log('userinfo',userInfo.id)
   useEffect(() => {
     const handleConnect = () => {
+    //  console.log('userinfo',userInfo.id)
       if (userInfo.id) {
+        // console.log('hi')
         socket.emit("user_id", userInfo.id);
+      }else{
+        return
       }
       // console.log('connnecteddddd')
     };
@@ -157,7 +161,7 @@ export default function Contact() {
       socket.off("grpMsgStatus", grpMsgStatus);
       // socket.off();
     };
-  }, []);
+  }, [isLogin]);
 
   const handleClick = (username, id) => {
     // setGrpDetails({username:'',id:''})
