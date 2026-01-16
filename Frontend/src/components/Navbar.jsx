@@ -62,14 +62,14 @@ export default function Navbar({ handleDialogOpen }) {
     <div className="flex justify-between bg-[#093FB4] py-2">
       {userInfo?.username && (
         <span className=" text-white flex items-center px-2 capitalize font-semibold tracking-wide ">
-          {userInfo?.username}
+          {loading ? 'user' : userInfo?.username}
         </span>
       )}
-      {
+      {/* {
         loading && <span className=" text-white flex items-center px-2 capitalize font-semibold tracking-wide ">
           user
         </span>
-      }
+      } */}
       {/* <span className=" flex items-center h-fit my-auto gap-2 px-1 py-1 border border-solid border-[#948979] text-gray-600 w-1/3 rounded-lg overflow-hidden">
                 <IoMdSearch />
                 <input

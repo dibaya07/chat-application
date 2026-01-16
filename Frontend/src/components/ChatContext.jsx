@@ -67,6 +67,7 @@ useEffect(() => {
         id: res.data.rest._id,
       });
       setIsLogin(true);
+       setLoading(false)
     } catch (error) {
       setError(error.response.data.message);
       setTimeout(() => {
@@ -82,7 +83,6 @@ useEffect(() => {
   useEffect(() => {
      if(isLogin){
        myData()
-       setLoading(false)
     }
   }, [isLogin])
   
