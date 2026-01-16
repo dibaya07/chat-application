@@ -95,7 +95,7 @@ export const chatSocket = (io) => {
       //   // console.log(currentRoom.get(data.receiverId) == room)
       // }
       const isReceiverInRoom = currentRoom.get(data.receiverId) == room
-        console.log('isreceriver',isReceiverInRoom)
+        // console.log('isreceriver',isReceiverInRoom)
       const receiverSocket = activeUser.get(data.receiverId);
       const newMessage = await Chat.create({
         senderId: data.senderId,

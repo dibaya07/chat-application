@@ -55,6 +55,7 @@ useEffect(() => {
 
   const myData = async () => {
     try {
+      setLoading(true)
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/me`, {
         withCredentials: true,
       });
@@ -81,6 +82,7 @@ useEffect(() => {
   useEffect(() => {
      if(isLogin){
        myData()
+       setLoading(false)
     }
   }, [isLogin])
   
