@@ -145,9 +145,8 @@ export const chatSocket = (io) => {
       )
         ?.map((item) => item.seenBy)
         ?.filter((item) => !item.includes(data.ownerId));
-
       if (pendingChat.length > 0) {
-        const updatedSeenBy = await GroupChat.updateMany(
+         await GroupChat.updateMany(
           {
             groupId: data.grpId,
             status: "sent",
@@ -167,6 +166,7 @@ export const chatSocket = (io) => {
           allGrpMembers.every((m) => item.includes(m.toString()))
         );
         if (unreadStatus.every((item) => item == true)) {
+          // console.log('hi')
           const updatedSeenBy = await GroupChat.updateMany(
             { groupId: data.grpId, status: "sent" },
             {
@@ -198,7 +198,7 @@ export const chatSocket = (io) => {
       const activeGrpMembers = allGrpMembers
         .map((item) => item.toString())
         .filter((item) => activeMembers.includes(item));
-
+        
       const newGrpMsg = await GroupChat.create({
         groupId: data.grpId,
         grpName: data.grpName,
@@ -219,6 +219,13 @@ export const chatSocket = (io) => {
         );
       })
     });
+
+    // socket.on('newGrpCreated',(data)=>{
+    //   console.log('new group created ')
+    //   // data.members.map(item=>{
+    //   //   console.log(item)
+    //   // })
+    // })
 
     socket.on("disconnect", () => {
       for (const [key, value] of activeUser.entries()) {

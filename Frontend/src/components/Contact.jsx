@@ -29,6 +29,7 @@ export default function Contact() {
     allGroups,
     setIsGrpClicked,
     oldGrpMsg,
+    // refresh, setRefresh
   } = useContext(ChatContext);
 
   const dialogRef = useRef();
@@ -46,7 +47,11 @@ export default function Contact() {
 
   const handleActiveUsers = (data) => {
     // console.log('step 2 :got activeusers ',data)
+    // console.log(activeUsers)
     setActiveUsers(data);
+    // if(activeUsers.length > 0){
+    //   setRefresh(true)
+    // }
   };
 
   const handlePendingMsg = (data) => {
@@ -114,33 +119,24 @@ export default function Contact() {
       },
     ]);
   };
-  // useEffect(() => {
-  //  console.log(message.filter(item=>item.grpId == data.grpId && !item.id))
-  // }, [message])
-
   const grpMsgStatus = (data) => {
-    console.log(data);
-    // setMessage((prev)=>[
-    //   ...prev.filter(item=>item.grpId == data.groupId && !item.seenBy),{
-    //     seenBy:data.seenBy
-    //   }
-    // ])
+    setMessage((prev)=>[
+      ...prev.filter(item=>item.grpId == data.groupId && item.status == 'sent').map(item=>(
+        item.status = 'read'
+      ))
+    ])
   };
-// console.log('userinfo',userInfo.id)
+
   useEffect(() => {
     const handleConnect = () => {
-    //  console.log('userinfo',userInfo.id)
       if (userInfo.id) {
-        // console.log('hi')
         socket.emit("user_id", userInfo.id);
       }else{
         return
       }
-      // console.log('connnecteddddd')
     };
     socket.on("connect", handleConnect);
     if (socket.connected) {
-      // console.log('connected')
       handleConnect();
     }
     socket.on("activeUsers", handleActiveUsers);
@@ -213,6 +209,9 @@ export default function Contact() {
       members: grpMembers,
     });
     console.log(res);
+    if(res.data.success){
+      socket.emit("newGrpCreated",res.data.newGrp)
+    }
     setGrpMembers([]);
     setGrpName("");
     grpCreateRef.current.close();
@@ -243,8 +242,16 @@ export default function Contact() {
     ),
   };
 
+  // const handleReload = ()=>{
+  //   location.reload()
+  //   setRefresh(false)
+  // }
+
   return (
     <div className={` flex w-screen h-screen`}>
+      {/* {refresh && <dialog open>
+        <button onClick={handleReload}>Need Refresh</button>
+      </dialog>} */}
       <div
         className={`leftArea  h-screen w-full md:w-2/5 lg:w-1/3 overflow-hidden ${
           receiverId.id ? "hidden md:block " : ""

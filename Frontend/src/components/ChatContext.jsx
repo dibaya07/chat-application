@@ -44,6 +44,7 @@ export const ChatProvider = ({ children }) => {
   const [isGrpClicked, setIsGrpClicked] = useState(false)
   const [oldGrpMsg, setOldGrpMsg] = useState([])
   const [grpMsg, setGrpMsg] = useState([])
+  // const [refresh, setRefresh] = useState(false)
   // const [grpDetails, setGrpDetails] = useState({username:"",id:""})
 //   const [receivedMsg, setReceivedMsg] = useState(null)
   // const [token, setToken] = useState()
@@ -176,7 +177,8 @@ useEffect(() => {
         isGrpClicked, setIsGrpClicked,
         oldGrpMsg, setOldGrpMsg,
         grpMsg, setGrpMsg,
-        loading, setLoading
+        loading, setLoading,
+        // refresh, setRefresh
         // grpDetails, setGrpDetails
       }}
     >
