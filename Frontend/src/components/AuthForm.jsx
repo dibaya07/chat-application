@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { ChatContext } from "./context";
 import { useNavigate } from "react-router-dom";
 import { socket } from "../socket";
+import { IoMdHelpCircleOutline } from "react-icons/io";
 // import { useState } from "react";
 
 export default function AuthForm() {
@@ -66,6 +67,9 @@ export default function AuthForm() {
     } catch (error) {
       console.log("signup error",error);
       setError(error.response.data.message)
+      setLoading(false)
+       setUser(isSignUp ? {username: "",email: "",password: "",} : 
+        {username: "",email: "",password: "",});
       setTimeout(() => {
         setError('')
       }, 4000);
@@ -104,6 +108,7 @@ export default function AuthForm() {
         />
         <button className="border border-solid border-black m-2 w-fit  px-8 py-2 rounded-lg hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:bg-gray-600" disabled={loading} >{loading ? "..." : isSignUp ? "Sign up" : "Login" }</button>
       </form>
+      <span className="text-red-700 text-2xl my-auto cursor-pointer hover:text-[#010919] absolute top-11 right-1.5 sm:top-[90px] sm:right-[160px] lg:top-[90px] lg:right-[210px] xl:top-[100px] xl:right-[300px]" title="How it works" onClick={()=>navigate('/HowItWorks')}><IoMdHelpCircleOutline /></span>
       {error && <>
       <h2 className="text-red-800 ">{error}</h2>
       </>}

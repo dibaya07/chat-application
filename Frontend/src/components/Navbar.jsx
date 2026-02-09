@@ -21,7 +21,8 @@ export default function Navbar({ handleDialogOpen }) {
     setOldMsg,
     setReceiverId,
     setError,
-    loading
+    loading,
+    setLoading
   } = useContext(ChatContext);
   const navigate = useNavigate();
   const handleLogOut = async () => {
@@ -49,6 +50,7 @@ export default function Navbar({ handleDialogOpen }) {
       setIsLogin(false);
       setOldMsg([]);
       setReceiverId({ username: "", id: "" });
+      setLoading(false)
       navigate("/");
     } catch (error) {
       console.log(error);
