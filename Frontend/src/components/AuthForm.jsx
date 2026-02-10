@@ -85,22 +85,25 @@ export default function AuthForm() {
        {isSignUp && <input
           type="text"
           name="username"
+          required
           placeholder="username"
           value={user.username}
           onChange={handleChange}
           className="border border-solid border-black m-2 p-3 rounded-md w-[95%] md:w-[80%]"
         />}
         <input
-          type="text"
+          type="email"
           name="email"
+          required
           placeholder="email"
           value={user.email}
           onChange={handleChange}
           className="border border-solid border-black m-2 p-3 rounded-md w-[95%] md:w-[80%]"
         />
         <input
-          type="text"
+          type="password"
           name="password"
+          required
           placeholder="password"
           value={user.password}
           onChange={handleChange}
