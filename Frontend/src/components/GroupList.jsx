@@ -66,6 +66,9 @@ export default function GroupList({
             </li>
           );
         })}
+         {
+           (!allGroups || allGroups.length == 0) && (<div className="text-center my-2 ">No Group Found</div>)
+        }
     </>
   );
 }

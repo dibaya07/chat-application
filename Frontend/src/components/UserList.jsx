@@ -97,6 +97,9 @@ export default function UserList({
             </li>
           );
         })}
+        {
+           (!allUsers || allUsers.length == 0) && (<div className="text-center my-2 ">No User Found</div>)
+        }
     </>
   );
 }
