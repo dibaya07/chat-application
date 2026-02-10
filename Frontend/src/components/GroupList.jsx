@@ -67,7 +67,7 @@ export default function GroupList({
           );
         })}
          {
-           (!allGroups || allGroups.length == 0) && (<div className="text-center my-2 ">No Group Found</div>)
+           !onlyChats && (!allGroups || allGroups.length == 0) && (<div className="text-center my-2 ">No Group Found</div>)
         }
     </>
   );
