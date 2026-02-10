@@ -37,18 +37,3 @@ This project was built to improve understanding of:
 4. Messages are sent and received in real time using Socket.io.
 
 ---
-
-## 📦 Installation
-
-```bash
-# Clone the repository
-git clone <your-repo-link>
-
-# Install dependencies
-npm install
-
-# Start the backend server
-npm run server
-
-# Start the frontend
-npm start
