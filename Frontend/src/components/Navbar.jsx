@@ -27,6 +27,7 @@ export default function Navbar({ handleDialogOpen }) {
   const navigate = useNavigate();
   const handleLogOut = async () => {
     try {
+      setLoading(true)
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/user/logout`,
         {},

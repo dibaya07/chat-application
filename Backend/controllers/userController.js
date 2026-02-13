@@ -1,6 +1,7 @@
 import User from "../model/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { userSchema } from "../lib/schema.js";
 
 export const myData = async(req,res)=>{
   try{
@@ -32,11 +33,6 @@ export const allUsers = async (req, res) => {
       console.log(isToken)
       return res.status(401).json({ success: false, message:'Need to sign in' ,isToken });
     }
-    // const id = req.user.id;
-
-    // const user = await User.find({ _id: id });
-    // const { password, ...rest } = user[0]._doc;
-  
     const allUsers = await User.find();
     return res.json({ message: "success", isToken, allUsers }); // rest,
   } catch (error) {
@@ -46,19 +42,17 @@ export const allUsers = async (req, res) => {
 
 export const signup = async (req, res) => {
   try {
-    // console.log("arrived");
-    // console.log(req.body)
-    const { username, email, password } = req.body;
-
-    // console.log(req.token)
-    if (!username || !email || !password) {
-      console.log("error occure");
-      return res.status(400).json({ message: "all fields are required" });
+    const {error, value} = userSchema.validate(req.body)
+    if(error){
+      console.log('joi dev ', error.details[0].message)
+      return res.status(400).json({ message: error.details[0].message });
     }
+    const { username, email, password } = value;
     let oldUser = await User.findOne({ email });
     if (oldUser) {
       return res.status(400).json({ message: "user already exist" });
     }
+  
     const hashed = await bcrypt.hash(password, 10);
     const user = new User({ username, email, password: hashed });
 
@@ -74,11 +68,7 @@ export const signup = async (req, res) => {
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-    // newUser = newUser[password,...rest]
     const { password: pass, ...rest } = newUser._doc;
-    // console.log("ln 1",newUser);
-    // console.log("ln 2",pass);
-    // console.log("ln 3",rest);
     return res.json({ token, user: rest, success: true });
   } catch (error) {
     console.log("signup controller error", error);

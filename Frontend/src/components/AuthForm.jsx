@@ -22,7 +22,7 @@ export default function AuthForm() {
 
   const handleChange = (e) => {
     setUser((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
+      return { ...prev, [e.target.name] : e.target.value.trim() };
     });
   };
 
