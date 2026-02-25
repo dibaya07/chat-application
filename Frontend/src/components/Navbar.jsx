@@ -22,7 +22,8 @@ export default function Navbar({ handleDialogOpen }) {
     setReceiverId,
     setError,
     loading,
-    setLoading
+    setLoading,
+    isLogin
   } = useContext(ChatContext);
   const navigate = useNavigate();
   const handleLogOut = async () => {
@@ -69,7 +70,7 @@ export default function Navbar({ handleDialogOpen }) {
         </span>
       )}
       {
-        loading && <span className=" text-white flex items-center px-2 capitalize font-semibold tracking-wide ">
+        !isLogin && <span className=" text-white flex items-center px-2 capitalize font-semibold tracking-wide ">
           user
         </span>
       }
@@ -91,8 +92,8 @@ export default function Navbar({ handleDialogOpen }) {
           <MdGroupAdd />
         </span>
           <span className="text-white text-2xl my-auto cursor-pointer hover:text-[#010919]" title="How it works" onClick={()=>navigate('/HowItWorks')}><IoMdHelpCircleOutline /></span>
-        <span
-          onClick={handleLogOut}
+        <button
+          onClick={handleLogOut} disabled={loading}
           className={`bg-[#436fcf] hover:bg-[#010919]  text-white text-sm lg:text-xl py-1  px-2 cursor-pointer m-1 rounded-md`}
           title="Log out"
         >
@@ -100,7 +101,7 @@ export default function Navbar({ handleDialogOpen }) {
           <span className="md:hidden block" title="log out">
             <IoIosLogOut />
           </span>
-        </span>
+        </button>
       </div>
       {/* my-3 */}
     </div>

@@ -37,3 +37,11 @@ This project was built to improve understanding of:
 4. Messages are sent and received in real time using Socket.io.
 
 ---
+
+## To use Demo account use 
+email -> test1@gmail.com
+password -> 123456
+
+## Images
+![Img1](./images/img1.png)
+![Img2](./images/img2.png)

@@ -86,6 +86,7 @@ export default function AuthForm() {
           type="text"
           name="username"
           required
+          disabled={loading}
           placeholder="username"
           value={user.username}
           onChange={handleChange}
@@ -95,6 +96,7 @@ export default function AuthForm() {
           type="email"
           name="email"
           required
+          disabled={loading}
           placeholder="email"
           value={user.email}
           onChange={handleChange}
@@ -104,6 +106,7 @@ export default function AuthForm() {
           type="password"
           name="password"
           required
+          disabled={loading}
           placeholder="password"
           value={user.password}
           onChange={handleChange}
@@ -111,11 +114,11 @@ export default function AuthForm() {
         />
         <button className="border border-solid border-black m-2 w-fit  px-8 py-2 rounded-lg hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:bg-gray-600" disabled={loading} >{loading ? "..." : isSignUp ? "Sign up" : "Login" }</button>
       </form>
-      <span className="text-red-700 text-2xl my-auto cursor-pointer hover:text-[#010919] absolute top-11 right-1.5 sm:top-[90px] sm:right-[160px] lg:top-[90px] lg:right-[210px] xl:top-[100px] xl:right-[300px]" title="How it works" onClick={()=>navigate('/HowItWorks')}><IoMdHelpCircleOutline /></span>
+      <span className="text-red-700 text-2xl my-auto cursor-pointer hover:text-[#010919] absolute top-11 right-1.5 sm:top-[90px] sm:right-[160px] lg:top-[90px] lg:right-[210px] xl:top-[100px] xl:right-[300px]" title="How it works" onClick={()=>navigate('/HowItWorks')} disabled={loading}><IoMdHelpCircleOutline /></span>
       {error && <>
       <h2 className="text-red-800 ">{error}</h2>
       </>}
-      <p onClick={handleIsSignUp} className={`cursor-pointer m-1  hover:underline `}>{isSignUp ? "Already have a account" : "Create a new account"}</p>
+      <p onClick={handleIsSignUp} className={`cursor-pointer m-1  hover:underline `} disabled={loading}>{isSignUp ? "Already have a account" : "Create a new account"}</p>
     </div>
   );
 }
